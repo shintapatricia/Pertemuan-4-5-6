@@ -1,26 +1,95 @@
-import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  withRouter,
+  Redirect,
+} from "react-router-dom";
 
-class App extends Component{
-    render(){
-        return(
-            <Router>
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isAuth: false,
+    };
+  }
+  render() {
+    const LoginButton = withRouter(({ history }) => (
+      <button
+        onClick={() => {
+          this.setState({ isAuth: true });
+          history.push("/profile");
+        }}
+      >
+        Login
+      </button>
+    ));
+
+    const LogoutButton = withRouter(({ history }) => (
+      <button
+        onClick={() => {
+          this.setState({ isAuth: false });
+          history.push("/login");
+        }}
+      >
+        Logout
+      </button>
+    ));
+    return (
+      <Router>
+        <div>
+          <ul style={{ listStyle: "none" }}>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/news">News</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          </ul>
+
+          <Routes>
+            <Route
+              path="/"
+              exact
+              render={() => <div>Ini adalah halaman Home</div>}
+            />
+            <Route
+              path="/news"
+              render={() => <div>Ini adalah halaman News</div>}
+            />
+            <Route
+              path="/login"
+              render={() => (
                 <div>
-                    <ul style={{listStyle: 'none'}}>
-                        <li><Link to='/'>Home</Link></li>
-                        <li Link to='/news'>Home</li>
-                        <li>Page</li>
-                    </ul>
-
-                    {/* <Switch>
-                        <Route path='/' exact render={()=><div>Ini adalah halaman Home</div>} />
-                        <Route path='/news' exact render={()=><div>Ini adalah halaman News</div>} />
-
-                    </Switch> */}
+                  <button>
+                    <LoginButton />
+                  </button>
                 </div>
-            </Router>
-        )
-    }
+              )}
+            />
+            <Route
+              path="/profile"
+              render={() =>
+                this.state.isAuth ? (
+                  <div>
+                    Ini adalah halaman Profile <br />
+                    <LogoutButton />
+                  </div>
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
+    );
+  }
 }
 // import './css/bootstrap.min.css';
 // import './App.css';
@@ -29,7 +98,6 @@ class App extends Component{
 // import Help from './view/Help/Help';
 // import Profile from './view/Profile/Profile';
 
-
 // class App extends Component {
 
 //     constructor(){
@@ -37,7 +105,7 @@ class App extends Component{
 
 //     this.state = {
 //         saldo : [],
-//         deskripsi : null, 
+//         deskripsi : null,
 //         nominal : null,
 //         tipe : null,
 //         total : 0,
@@ -67,7 +135,6 @@ class App extends Component{
 //         saldo : data_tmp
 //     })
 // }
-
 
 // render(){
 //     return(
@@ -103,8 +170,8 @@ class App extends Component{
 //                      <tr key={index}>
 //                          <td>{saldo.deskripsi}</td>
 //                          <td className="text-end">{saldo.nominal}</td>
-//                      </tr> 
-//                   ))}  
+//                      </tr>
+//                   ))}
 //                     <tr className="fw-bold">
 //                         <td>Total</td>
 //                         <td className="text-end">Rp {this.state.total}</td>
@@ -144,7 +211,7 @@ class App extends Component{
 
 //     this.state = {
 //         mahasiswa : [],
-//         nama : null, 
+//         nama : null,
 //         nim : null,
 //         nilai : null
 //     }
@@ -217,8 +284,8 @@ class App extends Component{
 //                                 Delete
 //                              </button>
 //                          </td>
-//                      </tr> 
-//                   ))}  
+//                      </tr>
+//                   ))}
 //                 </tbody>
 //             </table>
 //         </div>
@@ -248,7 +315,7 @@ class App extends Component{
 //                        <td>{index+1}</td>
 //                        <td>{item.nama}</td>
 //                        <td>{item.nilai}</td>
-//                    </tr>    
+//                    </tr>
 //                ))}
 //             </tbody>
 //         </table>
@@ -266,17 +333,17 @@ class App extends Component{
 //         <table>
 //             <tr>
 //               <td>Nim</td>
-//               <td>:</td>  
+//               <td>:</td>
 //               <td>{mahasiswa.nim}</td>
 //             </tr>
 //             <tr>
 //               <td>Nama</td>
-//               <td>:</td>  
+//               <td>:</td>
 //               <td>{mahasiswa.nama}</td>
 //             </tr>
 //             <tr>
 //               <td>Email</td>
-//               <td>:</td>  
+//               <td>:</td>
 //               <td>{mahasiswa.email}</td>
 //             </tr>
 //         </table>
@@ -291,7 +358,7 @@ class App extends Component{
 
 //     return (
 //         <div>
-//             Isi array angka : 
+//             Isi array angka :
 //             <ul>
 //                 {angka.map((item,index)=>(
 //                     <li>Indeks ke - {index} : {item}</li>
@@ -308,13 +375,12 @@ class App extends Component{
 //             Isi array campuran :
 //             <ul>
 //                 {campuran.map((item,index)=>(
-//                     <li>Indeks ke - {index} : {item}</li>                    
+//                     <li>Indeks ke - {index} : {item}</li>
 //                 ))}
 
 //             </ul>
 //         </div>
 //     );
 // }
-
 
 export default App;
