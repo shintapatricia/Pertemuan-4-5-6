@@ -9,6 +9,7 @@ class App extends Component{
                     <ul style={{listStyle: 'none'}}>
                         <li><Link to='/'>Home</Link></li>
                         <li Link to='/news'>Home</li>
+                        <li>Page</li>
                     </ul>
 
                     {/* <Switch>
