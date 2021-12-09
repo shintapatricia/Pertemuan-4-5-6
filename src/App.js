@@ -6,8 +6,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.myRef.current.state.height = "100vh";
-    this.myRef.current.state.width = "100%";
+    this.myRef.current.style.height = "100vh";
+    this.myRef.current.style.width = "100%";
   }
   setBackground(bgColor, txtColor) {
     this.myRef.current.style.background = bgColor;
